@@ -1,0 +1,43 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=netstandard">
+
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+
+    <system:Double x:Key="FontForLabel">17</system:Double>
+    <system:Double x:Key="FontForButton">19</system:Double>
+    <system:Double x:Key="FontForTitle">22</system:Double>
+
+
+    <system:String x:Key="FontAwesomeChatIcon">&#xf086;</system:String>
+    <system:String x:Key="FontAwesomeUserIcon">&#xf007;</system:String>
+    <system:String x:Key="FontAwesomePictureIcon">&#xf1c5;</system:String>
+    <system:String x:Key="FontAwesomeCogIcon">&#xf013;</system:String>
+    <system:String x:Key="FontAwesomeSearchIcon">&#xf002;</system:String>
+    <system:String x:Key="FontAwesomeElipsisVerticalIcon">&#xf142;</system:String>
+    <system:String x:Key="FontAwesomeElipsisIcon">&#xf141;</system:String>
+    <system:String x:Key="FontAwesomePaperclipIcon">&#xf0c6;</system:String>
+    <system:String x:Key="FontAwesomeEmojiIcon">&#xf118;</system:String>
+    <system:String x:Key="FontAwesomeArrowLeftIcon">&#xf060;</system:String>
+    <system:String x:Key="FontAwesomeTickIcon">&#xf00c;</system:String>
+    <system:String x:Key="FontAwesomeCloseIcon">&#xf00d;</system:String>
+
+    <system:String x:Key="PageMenuIcon">&#xf0c9;</system:String>
+    <system:String x:Key="QuestionIcon">&#xf059;</system:String>
+    <system:String x:Key="OkIcon">&#xf058;</system:String>
+    <system:String x:Key="ReplyIcon">&#xf112;</system:String>
+    <system:String x:Key="OkCircleIcon">&#xf05d;</system:String>
+    <system:String x:Key="ExclamationIcon">&#xf06a;</system:String>
+
+    <system:String x:Key="StartIcon">&#xf04b;</system:String>
+    <system:String x:Key="PauseIcon">&#xf04c;</system:String>
+    <system:String x:Key="StopIcon">&#xf04d;</system:String>
+    <system:String x:Key="ZoomInIcon">&#xf00e;</system:String>
+    <system:String x:Key="ZoomOutIcon">&#xf010;</system:String>
+    <system:String x:Key="StepBackwordIcon">&#xf048;</system:String>
+    <system:String x:Key="StepForewordIcon">&#xf051;</system:String>
+
+
+
+</ResourceDictionary>
