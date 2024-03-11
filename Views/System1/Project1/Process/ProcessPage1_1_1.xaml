@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:GlobalCustomControls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="450"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DataContext="{d:DesignInstance Type=local:ProcessPage1_1_1ViewModel}"
+	d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
 
@@ -36,13 +36,15 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
-                Width="80"
-                Height="30"
-                Margin="20"
+                Width="50"
+                Height="50"
+				Style="{StaticResource TestButton}"
                 Command="{Binding AddCommand}"
-                Background="{Binding Back, Converter={local:IntToBrushConverter}}"
+				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
+                Background="{Binding Back, Converter={local:IntToBrushForBackgroundConverter}}"
                 Content="流程1-1-1" />
-            <Button
+			
+			<Button
                 Width="80"
                 Height="30"
                 Margin="20"
@@ -54,7 +56,6 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <TextBox
-                Name="ab"
                 Width="80"
                 Height="30"
                 Margin="20" />

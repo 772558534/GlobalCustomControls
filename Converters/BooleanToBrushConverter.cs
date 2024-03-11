@@ -52,20 +52,43 @@ namespace GlobalCustomControls
         }
     }
 
-    public class IntToBrushConverter : BaseValueConverter<IntToBrushConverter>
+    public class IntToBrushForBackgroundConverter : BaseValueConverter<IntToBrushForBackgroundConverter>
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
 
-            switch (/*int.Parse((string)*/value)
+            switch (value)
             {
-                case 0:
-                    return new SolidColorBrush(Colors.Black);
-                case 1:
+                case 0 or 4:
+                    return new SolidColorBrush(Colors.Gray);
+                case 1 or 3:
                     return new SolidColorBrush(Colors.Green);
                 case 2:
                     return new SolidColorBrush(Colors.Yellow);
+                default:
+                    Debugger.Break();
+                    return null;
+            }
+        }
+
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IntToBrushForForegroundConverter : BaseValueConverter<IntToBrushForForegroundConverter>
+    {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch (value)
+            {
+                case 0 or 1 or 2:
+                    return new SolidColorBrush(Colors.Black);
                 case 3:
+                    return new SolidColorBrush(Colors.Yellow);
+                case 4:
                     return new SolidColorBrush(Colors.Red);
                 default:
                     Debugger.Break();

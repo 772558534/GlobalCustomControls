@@ -27,7 +27,7 @@
                 Name="ab"
                 Margin="15,5,5,5"
                 VerticalAlignment="Center"
-                FontSize="{StaticResource FontForTitle}"
+                FontSize="{StaticResource FontSizeLarge}"
                 Visibility="{Binding SlideMenuVisibility,Converter={local:BooleanToVisibilityGoneConverter}}"
                 Foreground="White"
                 Text="Flying Saw Length Basic" />
