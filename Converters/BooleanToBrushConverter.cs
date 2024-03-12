@@ -4,6 +4,7 @@ using System;
 
 using System.Windows.Media;
 using System.Diagnostics;
+using System.Windows.Navigation;
 
 namespace GlobalCustomControls
 {
@@ -44,6 +45,67 @@ namespace GlobalCustomControls
         {
 
             return (bool)value ? Application.Current.FindResource("BackgroundLightBrush") : Application.Current.FindResource("BackgroundGrayBrush");
+        }
+
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class ThreeWayValveInputBackgroundConverter : BaseValueConverter<ThreeWayValveInputBackgroundConverter>
+    {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) 
+        {
+            Type a = value.GetType();
+
+           return value == Brushes.Red ? Brushes.Gray : Brushes.Green;
+        }
+
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IntToBrushForThreeWayValveBackgroundOnConverter : BaseValueConverter<IntToBrushForThreeWayValveBackgroundOnConverter>
+    {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch (value)
+            {
+                case 1 or 3 or 4:
+                    return new SolidColorBrush(Colors.Gray);
+                case 0 or 2:
+                    return new SolidColorBrush(Colors.Green);
+                default:
+                    Debugger.Break();
+                    return null;
+            }
+        }
+
+        public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IntToBrushForThreeWayValveBackgroundOffConverter : BaseValueConverter<IntToBrushForThreeWayValveBackgroundOffConverter>
+    {
+        public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+
+            switch (value)
+            {
+                case 0 or 2 or 4:
+                    return new SolidColorBrush(Colors.Gray);
+                case 1 or 3:
+                    return new SolidColorBrush(Colors.Green);
+                default:
+                    Debugger.Break();
+                    return null;
+            }
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

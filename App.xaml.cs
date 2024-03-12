@@ -20,6 +20,7 @@ namespace GlobalCustomControls
 
             container.AddSingleton<MainWindow>();
             container.AddSingleton<MainViewModel>();
+            container.AddSingleton<ThreeWayValveInputBackgroundConverter>();
             //container.AddSingleton<SystemPage1>();
             //container.AddSingleton<ProjectPage1_1>();
             //container.AddSingleton<ProjectPage1_2>();

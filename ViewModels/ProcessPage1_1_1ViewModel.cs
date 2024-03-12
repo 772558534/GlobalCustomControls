@@ -14,7 +14,7 @@ namespace GlobalCustomControls
 
         public ProcessPage1_1_1ViewModel()
         {
-            Back = 1;
+            Back = 4;
         }
 
         [RelayCommand] void Add()

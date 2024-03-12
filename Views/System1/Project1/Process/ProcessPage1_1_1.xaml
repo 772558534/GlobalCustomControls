@@ -35,22 +35,67 @@
             Grid.Row="1"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
-            <Button
-                Width="50"
-                Height="50"
-				Style="{StaticResource TestButton}"
-                Command="{Binding AddCommand}"
-				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
-                Background="{Binding Back, Converter={local:IntToBrushForBackgroundConverter}}"
-                Content="流程1-1-1" />
-			
 			<Button
                 Width="80"
                 Height="30"
                 Margin="20"
                 Command="{Binding ResetCommand}"
                 Content="流程1-1-1" />
-        </StackPanel>
+			<Button
+                Width="50"
+                Height="50"
+				Margin="10"
+				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
+				Background="{Binding Back, Converter={local:IntToBrushForBackgroundConverter}}"
+				Style="{StaticResource MixingMotorButton}"
+                Command="{Binding AddCommand}" />
+
+			<Button
+                Width="50"
+                Height="50"
+				Margin="10"
+				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
+				Background="{Binding Back, Converter={local:IntToBrushForBackgroundConverter}}"
+				Style="{StaticResource ProportionalValveButton}"
+                Command="{Binding AddCommand}" />
+
+			<Button
+                Width="50"
+                Height="50"
+				Margin="10"
+				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
+				Background="{Binding Back, Converter={local:IntToBrushForThreeWayValveBackgroundOnConverter}}"
+				BorderBrush="{Binding Back, Converter={local:IntToBrushForThreeWayValveBackgroundOffConverter}}"
+				Style="{StaticResource ThreeWayValveButton}"
+                Command="{Binding AddCommand}" />
+
+			<Button
+				Width="100"
+                Height="50"
+				Margin="10"
+				Foreground="{Binding Back, Converter={local:IntToBrushForForegroundConverter}}"
+				Background="{Binding Back, Converter={local:IntToBrushForBackgroundConverter}}"
+				Style="{StaticResource ButterflyValveButton}"
+                Command="{Binding AddCommand}" />
+
+
+			<Canvas
+                Width="94"
+                Height="80"
+                Margin="30,0,0,0"
+                Background="LightBlue">
+				
+				<Path Stroke="Black" StrokeThickness="3" Fill="Yellow">
+					<Path.Data>
+						<PathGeometry>
+							M 47,30 L 10,10 10,50 z
+							M 47,30 L 27,70 67,70 z
+							M 47,30 L 84,10 84,50 z
+						</PathGeometry>
+					</Path.Data>
+				</Path>
+			</Canvas>
+		</StackPanel>
         <StackPanel
             Grid.Row="2"
             HorizontalAlignment="Center"
