@@ -11,10 +11,10 @@ false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\VS\GlobalCustomControls\App.xaml
 17285066314
-
-29-1162431887
-202-555418407
+1-850564810
+34-211680242
+198-294894759
 MainWindow.xaml;Styles\Buttons.xaml;Styles\Colors.xaml;Styles\ComboBox.xaml;Styles\Fonts.xaml;Styles\Scroll.xaml;Styles\Texts.xaml;Views\System1\Project1\Process\ProcessPage1_1_1.xaml;Views\System1\Project1\Process\ProcessPage1_1_2.xaml;Views\System1\Project1\Process\ProcessPage1_1_3.xaml;Views\System1\Project1\ProjectPage1_1.xaml;Views\System1\Project2\Process\ProcessPage1_2_1.xaml;Views\System1\Project2\Process\ProcessPage1_2_2.xaml;Views\System1\Project2\Process\ProcessPage1_2_3.xaml;Views\System1\Project2\ProjectPage1_1.xaml;Views\System1\SystemPage1.xaml;Views\System2\SystemPage2.xaml;
 
-False
+True
 

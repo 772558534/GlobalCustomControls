@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:GlobalCustomControls">
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:GlobalCustomControls">
 
 	<ResourceDictionary.MergedDictionaries>
 		<!--  Order is important 顺序很重要  -->
@@ -10,26 +10,40 @@
 		<ResourceDictionary Source="Texts.xaml" />
 	</ResourceDictionary.MergedDictionaries>
 
+	<!--
+		Data=”M 300,300 A 100,100 0 1 1 300,299 Z”
+		
+		M 300,300  : 300,300 表示起始坐标，字母 M 为 Move, 意思是将画笔移到 300,300 处；
+		
+		A 100,100 0 1 1 300,299 这是圆弧的书写语法，详细格式如下：
+		A 表示 Arc 圆弧，
+		100,100 表示圆弧的 x, y 值，表示椭圆时表示大小半径，圆是两值相同；
+		0 表示图形的旋转角度；
+		1 当图形设置了旋转角度，并且大于 180度时，才会生效，1 表示取大圆弧，0 表示取小圆弧；
+		1 表示画圆时笔画是是顺时针画，需要逆时针时设置为 0；
+		300,299 表示终止坐标
+	-->
+
 	<Geometry x:Key="MixingMotorData">
 		M 70,40 A 30 30 0 1 1 70,39 z
-        M 23,60 L 23,20 23.5,20 39.75,59 40.25,59 56.5,20 57,20 57,60
+		M 23,60 L 23,20 23.5,20 39.75,59 40.25,59 56.5,20 57,20 57,60
 	</Geometry>
-	<Style TargetType="{x:Type Path}" x:Key="MixingMotor">
+	<Style x:Key="MixingMotor" TargetType="{x:Type Path}">
 		<Setter Property="Data" Value="{StaticResource MixingMotorData}" />
 	</Style>
 
 	<Geometry x:Key="ButterflyValveData">
 		M 10,10 L 170,90 170,10 10,90 10,10 z
 	</Geometry>
-	<Style TargetType="{x:Type Path}" x:Key="ButterflyValve">
+	<Style x:Key="ButterflyValve" TargetType="{x:Type Path}">
 		<Setter Property="Data" Value="{StaticResource ButterflyValveData}" />
 	</Style>
-	
-	<!--ThreeWayValve Button-->
+
+	<!--  ThreeWayValve Button  -->
 	<Style
-        x:Key="ThreeWayValveButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="ThreeWayValveButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
@@ -38,61 +52,75 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-						CornerRadius="10"
-                        x:Name="border"
-						Background="Gray"
+						x:Name="border"
+						Padding="1"
 						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
 						VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-						Padding="1"
-                        SnapsToDevicePixels="true">
+						Background="Gray"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<Grid>
-							<Border BorderThickness="1,0,1,1" BorderBrush="Black" CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
+							<Border
+								BorderBrush="Black"
+								BorderThickness="1,0,1,1"
+								CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Border BorderThickness="0,1,0,0" BorderBrush="White" Margin="2" Opacity="0.7" CornerRadius="{Binding ElementName=button, Path=CornerRadius}">
+							<Border
+								Margin="2"
+								BorderBrush="White"
+								BorderThickness="0,1,0,0"
+								CornerRadius="{Binding ElementName=button, Path=CornerRadius}"
+								Opacity="0.7">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Viewbox >
-								<Canvas Height="80" Width="94">
-									<!--TODO: -->
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3" Fill="{TemplateBinding Foreground,Converter={local:ThreeWayValveInputBackgroundConverter}}"
-										  Margin="{TemplateBinding Padding}"
-										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-										  Focusable="False"
-										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+							<Viewbox>
+								<Canvas Width="94" Height="80">
+									<!--  TODO:  -->
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding local:ThreeWayValveInputBrush.Value}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 47,30 L 10,10 10,50 z
 											</PathGeometry>
 										</Path.Data>
 									</Path>
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3" Fill="{TemplateBinding Background}"
-										  Margin="{TemplateBinding Padding}"
-										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-										  Focusable="False"
-										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 47,30 L 84,10 84,50 z
 											</PathGeometry>
 										</Path.Data>
 									</Path>
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3" Fill="{TemplateBinding BorderBrush}"
-										  Margin="{TemplateBinding Padding}"
-										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-										  Focusable="False"
-										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding BorderBrush}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 47,30 L 27,70 67,70 z
@@ -108,11 +136,11 @@
 		</Setter>
 	</Style>
 
-	<!--ProportionalValve Button-->
+	<!--  ProportionalValve Button  -->
 	<Style
-        x:Key="ProportionalValveButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="PumpButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
@@ -121,66 +149,162 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-						CornerRadius="10"
-                        x:Name="border"
-						Background="Gray"
+						x:Name="border"
+						Padding="1"
 						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
 						VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-						Padding="1"
-                        SnapsToDevicePixels="true">
+						Background="Gray"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<Grid>
-							<Border BorderThickness="1,0,1,1" BorderBrush="Black" CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
+							<Border
+								BorderBrush="Black"
+								BorderThickness="1,0,1,1"
+								CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Border BorderThickness="0,1,0,0" BorderBrush="White" Margin="2" Opacity="0.7" CornerRadius="{Binding ElementName=button, Path=CornerRadius}">
+							<Border
+								Margin="2"
+								BorderBrush="White"
+								BorderThickness="0,1,0,0"
+								CornerRadius="{Binding ElementName=button, Path=CornerRadius}"
+								Opacity="0.7">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Viewbox >
-								<Canvas Height="80" Width="80">
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3" Fill="{TemplateBinding Background}"
-										  Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Focusable="False"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+							<Viewbox>
+								<Canvas Width="130" Height="130">
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
+										<Path.Data>
+											<PathGeometry>
+												M 20,65 A 45,45,0,1,0 20,64 z
+												M 20,65 65,20
+												M 20,65 65,110
+											</PathGeometry>
+										</Path.Data>
+									</Path>
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
+										<Path.Data>
+											<PathGeometry>
+												M 43,43 87,43 87,87 43,87 z
+											</PathGeometry>
+										</Path.Data>
+									</Path>
+								</Canvas>
+							</Viewbox>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!--  ProportionalValve Button  -->
+	<Style
+		x:Key="ProportionalValveButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Foreground" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type ButtonBase}">
+					<Border
+						x:Name="border"
+						Padding="1"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						Background="Gray"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
+						<Grid>
+							<Border
+								BorderBrush="Black"
+								BorderThickness="1,0,1,1"
+								CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
+								<Border.Effect>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
+								</Border.Effect>
+							</Border>
+							<Border
+								Margin="2"
+								BorderBrush="White"
+								BorderThickness="0,1,0,0"
+								CornerRadius="{Binding ElementName=button, Path=CornerRadius}"
+								Opacity="0.7">
+								<Border.Effect>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
+								</Border.Effect>
+							</Border>
+							<Viewbox>
+								<Canvas Width="80" Height="80">
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 43,10 L 70,10 70,70 43,70 43,10
 											</PathGeometry>
 										</Path.Data>
 									</Path>
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3" Fill="{TemplateBinding Background}"
-										  Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Focusable="False"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 10,10 L 38,70 10,70 38,10 10,10 z
 											</PathGeometry>
 										</Path.Data>
 									</Path>
-									<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="3"
-										  Margin="{TemplateBinding Padding}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                          Focusable="False"
-                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-										  >
+									<Path
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
+										StrokeThickness="3">
 										<Path.Data>
 											<PathGeometry>
 												M 43,10 A 27,30,0,1,1 43,70 z
-                                                M 24,40 L 43,40
-                                                M 38,25 A 26,60,90,0,0 38,55
-                                                M 10,25 A 26,60,90,0,1 10,55
+												M 24,40 L 43,40
+												M 38,25 A 26,60,90,0,0 38,55
+												M 10,25 A 26,60,90,0,1 10,55
 											</PathGeometry>
 										</Path.Data>
 									</Path>
@@ -203,49 +327,56 @@
 		</Setter>
 	</Style>
 
-	<!--ButterflyValve Button-->
+	<!--  ButterflyValve Button  -->
 	<Style
-        x:Key="ButterflyValveButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="ButterflyValveButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
-		<Setter Property="Padding" Value="5 5 0 0" />
+		<Setter Property="Padding" Value="5,5,0,0" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-						CornerRadius="10"
-                        x:Name="border"
-						Background="Gray"
-                        BorderThickness="{TemplateBinding BorderThickness}"
+						x:Name="border"
 						Padding="1"
-                        SnapsToDevicePixels="true">
+						Background="Gray"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<Grid>
-							<Border BorderThickness="1,0,1,1" BorderBrush="Black" CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
+							<Border
+								BorderBrush="Black"
+								BorderThickness="1,0,1,1"
+								CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Border BorderThickness="0,1,0,0" BorderBrush="White" Margin="2" Opacity="0.7" CornerRadius="{Binding ElementName=button, Path=CornerRadius}">
+							<Border
+								Margin="2"
+								BorderBrush="White"
+								BorderThickness="0,1,0,0"
+								CornerRadius="{Binding ElementName=button, Path=CornerRadius}"
+								Opacity="0.7">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Viewbox >
-								<Canvas Height="110" Width="190">
+							<Viewbox>
+								<Canvas Width="190" Height="110">
 									<Path
-								        Stroke="{TemplateBinding Foreground}"
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 										Fill="{TemplateBinding Background}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
 										StrokeThickness="3"
-								        Style="{StaticResource ButterflyValve}"
-                                        Margin="{TemplateBinding Padding}"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Focusable="False"
-                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-				                        />
+										Style="{StaticResource ButterflyValve}" />
 								</Canvas>
 							</Viewbox>
 						</Grid>
@@ -255,49 +386,61 @@
 		</Setter>
 	</Style>
 
-	<!--MixingMotor Button-->
+	<!--  MixingMotor Button  -->
 	<Style
-        x:Key="MixingMotorButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="MixingMotorButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
-		<Setter Property="Padding" Value="0 2 10 10" />
+		<Setter Property="Padding" Value="0,2,10,10" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-						CornerRadius="10"
-                        x:Name="border"
-						Background="Gray"
-                        BorderThickness="{TemplateBinding BorderThickness}"
+						x:Name="border"
 						Padding="1"
-                        SnapsToDevicePixels="true">
+						Background="Gray"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<Grid>
-							<Border BorderThickness="1,0,1,1" BorderBrush="Black" CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
+							<Border
+								BorderBrush="Black"
+								BorderThickness="1,0,1,1"
+								CornerRadius="{Binding ElementName=border, Path=CornerRadius}">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Border BorderThickness="0,1,0,0" BorderBrush="White" Margin="2" Opacity="0.7" CornerRadius="{Binding ElementName=button, Path=CornerRadius}">
+							<Border
+								Margin="2"
+								BorderBrush="White"
+								BorderThickness="0,1,0,0"
+								CornerRadius="{Binding ElementName=button, Path=CornerRadius}"
+								Opacity="0.7">
 								<Border.Effect>
-									<BlurEffect Radius="2" KernelType="Gaussian"/>
+									<BlurEffect KernelType="Gaussian" Radius="2" />
 								</Border.Effect>
 							</Border>
-							<Viewbox >
-								<Canvas Height="80" Width="80">
-									<Ellipse Fill="{TemplateBinding Background}" Width="60" Height="60" Canvas.Left="10" Canvas.Top="11"/>
+							<Viewbox>
+								<Canvas Width="80" Height="80">
+									<Ellipse
+										Canvas.Left="10"
+										Canvas.Top="11"
+										Width="60"
+										Height="60"
+										Fill="{TemplateBinding Background}" />
 									<Path
-								        Stroke="{TemplateBinding Foreground}"
+										Margin="{TemplateBinding Padding}"
+										HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										Focusable="False"
+										SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										Stroke="{TemplateBinding Foreground}"
 										StrokeThickness="3"
-								        Style="{StaticResource MixingMotor}"
-                                        Margin="{TemplateBinding Padding}"
-                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                        Focusable="False"
-                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-				                        />
+										Style="{StaticResource MixingMotor}" />
 								</Canvas>
 							</Viewbox>
 						</Grid>
@@ -329,18 +472,18 @@
 
 	<!--  System Icon Button  -->
 	<Style
-        x:Key="SystemIconButton"
-        BasedOn="{StaticResource Hoverless}"
-        TargetType="{x:Type Button}">
+		x:Key="SystemIconButton"
+		BasedOn="{StaticResource Hoverless}"
+		TargetType="{x:Type Button}">
 		<Setter Property="Padding" Value="10" />
 		<Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
 	</Style>
 
 	<!--  Window Control Button  -->
 	<Style
-        x:Key="WindowControlButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="WindowControlButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 		<Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Padding" Value="8" />
@@ -358,9 +501,9 @@
 				<ControlTemplate TargetType="{x:Type Button}">
 					<Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
 						<TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Text="{TemplateBinding Content}" />
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Text="{TemplateBinding Content}" />
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
@@ -375,9 +518,9 @@
 
 	<!--  Window Close Button  -->
 	<Style
-        x:Key="WindowCloseButton"
-        BasedOn="{StaticResource WindowControlButton}"
-        TargetType="{x:Type Button}">
+		x:Key="WindowCloseButton"
+		BasedOn="{StaticResource WindowControlButton}"
+		TargetType="{x:Type Button}">
 
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
@@ -404,29 +547,27 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="10"
-                        SnapsToDevicePixels="true">
+						x:Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<Grid>
 							<TextBlock
-                                Margin="{TemplateBinding Padding}"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Focusable="False"
-                                FontFamily="{TemplateBinding FontFamily}"
-                                FontSize="{TemplateBinding FontSize}"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                Text="{TemplateBinding Content}"
-                                 />
+								Margin="{TemplateBinding Padding}"
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Focusable="False"
+								FontFamily="{TemplateBinding FontFamily}"
+								FontSize="{TemplateBinding FontSize}"
+								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+								Text="{TemplateBinding Content}" />
 							<TextBlock
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                FontSize="{TemplateBinding FontSize}"
-                                Style="{StaticResource SpinningText}"
-                                />
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								FontSize="{TemplateBinding FontSize}"
+								Style="{StaticResource SpinningText}" />
 						</Grid>
 					</Border>
 					<ControlTemplate.Triggers>
@@ -434,10 +575,10 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<ColorAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="Background.Color"
-                                        To="{StaticResource WordBlue}"
-                                        Duration="0:0:0.3" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="Background.Color"
+										To="{StaticResource WordBlue}"
+										Duration="0:0:0.3" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -445,10 +586,10 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<ColorAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="Background.Color"
-                                        From="{StaticResource WordBlue}"
-                                        Duration="0:0:0.3" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="Background.Color"
+										From="{StaticResource WordBlue}"
+										Duration="0:0:0.3" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -464,9 +605,9 @@
 
 	<!--  Text Button  -->
 	<Style
-        x:Key="TextButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="TextButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
@@ -480,21 +621,21 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="10"
-                        SnapsToDevicePixels="true">
+						x:Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						CornerRadius="10"
+						SnapsToDevicePixels="true">
 						<TextBlock
-                            Margin="{TemplateBinding Padding}"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Focusable="False"
-                            FontFamily="{TemplateBinding FontFamily}"
-                            FontSize="{TemplateBinding FontSize}"
-                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                            Text="{TemplateBinding Content}" />
+							Margin="{TemplateBinding Padding}"
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							Focusable="False"
+							FontFamily="{TemplateBinding FontFamily}"
+							FontSize="{TemplateBinding FontSize}"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							Text="{TemplateBinding Content}" />
 					</Border>
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="true">
@@ -512,9 +653,9 @@
 
 	<!--  Icon Button  -->
 	<Style
-        x:Key="IconButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="IconButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 
 		<Setter Property="Background" Value="{StaticResource WordTransparentBlueBrush}" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
@@ -528,23 +669,23 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        SnapsToDevicePixels="true">
+						x:Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						SnapsToDevicePixels="true">
 
 						<Grid>
 							<Viewbox>
 								<TextBlock
-                                    Margin="{TemplateBinding Padding}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Focusable="False"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    Text="{TemplateBinding Content}" />
+									Margin="{TemplateBinding Padding}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									Focusable="False"
+									FontFamily="{TemplateBinding FontFamily}"
+									FontSize="{TemplateBinding FontSize}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+									Text="{TemplateBinding Content}" />
 							</Viewbox>
 						</Grid>
 					</Border>
@@ -553,10 +694,10 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<ColorAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="Background.Color"
-                                        To="{StaticResource WordLightBlue}"
-                                        Duration="0:0:0.3" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="Background.Color"
+										To="{StaticResource WordLightBlue}"
+										Duration="0:0:0.3" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -564,10 +705,10 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<ColorAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="Background.Color"
-                                        To="{StaticResource WordTransparentBlue}"
-                                        Duration="0:0:0.3" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="Background.Color"
+										To="{StaticResource WordTransparentBlue}"
+										Duration="0:0:0.3" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -583,9 +724,9 @@
 
 	<!--  Icon Grow Button  -->
 	<Style
-        x:Key="IconGrowButton"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="{x:Type Button}">
+		x:Key="IconGrowButton"
+		BasedOn="{StaticResource BaseStyle}"
+		TargetType="{x:Type Button}">
 
 		<Setter Property="Background" Value="{StaticResource WordTransparentBlueBrush}" />
 		<Setter Property="Foreground" Value="{StaticResource ForegroundLightBrush}" />
@@ -599,11 +740,11 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ButtonBase}">
 					<Border
-                        x:Name="border"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        SnapsToDevicePixels="true">
+						x:Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						SnapsToDevicePixels="true">
 
 						<!--  Add a render scale tranform  -->
 						<Border.RenderTransform>
@@ -616,14 +757,14 @@
 						<Grid>
 							<Viewbox>
 								<TextBlock
-                                    Margin="{TemplateBinding Padding}"
-                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                    Focusable="False"
-                                    FontFamily="{TemplateBinding FontFamily}"
-                                    FontSize="{TemplateBinding FontSize}"
-                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                    Text="{TemplateBinding Content}" />
+									Margin="{TemplateBinding Padding}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									Focusable="False"
+									FontFamily="{TemplateBinding FontFamily}"
+									FontSize="{TemplateBinding FontSize}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+									Text="{TemplateBinding Content}" />
 							</Viewbox>
 						</Grid>
 					</Border>
@@ -632,15 +773,15 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<DoubleAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                        To="1.4"
-                                        Duration="0:0:0.15" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+										To="1.4"
+										Duration="0:0:0.15" />
 									<DoubleAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                        To="1.4"
-                                        Duration="0:0:0.15" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+										To="1.4"
+										Duration="0:0:0.15" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
@@ -648,15 +789,15 @@
 							<BeginStoryboard>
 								<Storyboard>
 									<DoubleAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
-                                        To="1"
-                                        Duration="0:0:0.15" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleX)"
+										To="1"
+										Duration="0:0:0.15" />
 									<DoubleAnimation
-                                        Storyboard.TargetName="border"
-                                        Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
-                                        To="1"
-                                        Duration="0:0:0.15" />
+										Storyboard.TargetName="border"
+										Storyboard.TargetProperty="(RenderTransform).(ScaleTransform.ScaleY)"
+										To="1"
+										Duration="0:0:0.15" />
 								</Storyboard>
 							</BeginStoryboard>
 						</EventTrigger>
