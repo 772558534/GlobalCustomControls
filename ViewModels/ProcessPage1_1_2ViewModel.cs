@@ -15,8 +15,8 @@ namespace GlobalCustomControls
         [RelayCommand]
         void Log()
         {
-            //    Logger logger= LogManager.GetCurrentClassLogger();
-            //    logger.Info("my info message");
+            Logger logger = LogManager.GetCurrentClassLogger();
+            logger.Info("my info message");
 
             string sql = "server=jiashili-PC;Database=test;user id=sa;password=123456;Encrypt=True;TrustServerCertificate=True;";
 
